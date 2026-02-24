@@ -1,0 +1,3278 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 1 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R1
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/0
+ip address 11.0.0.5 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/1
+ip address 11.0.0.14 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 21.0.0.17 255.255.255.240
+no shutdown
+exit
+router rip
+version 2
+network 11.0.0.4
+network 11.0.0.12
+network 21.0.0.16
+no auto-summary
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 21.0.0.18 255.255.255.240
+no shutdown
+int gi1/0/3
+no switchport
+ip address 10.0.1.254 255.255.255.0
+no shutdown
+int gi1/0/2
+switchport trunk native vlan 9
+switchport mode trunk
+no shutdown
+int gi1/0/4
+switchport trunk native vlan 9
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+int vlan 5
+ip address 11.0.1.254 255.255.255.128
+no shutdown
+ip dhcp pool cinco
+default-router 11.0.1.254
+network 11.0.1.128 255.255.255.128
+int vlan 7
+ip address 11.0.3.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.3.254
+network 11.0.3.0 255.255.255.0
+int vlan 9
+ip address 11.0.0.174 255.255.255.240
+no shutdown
+ip dhcp pool native
+default-router 11.0.0.174
+network 11.0.0.160 255.255.255.240
+exit
+vlan 1
+name uno
+vlan 5
+name cinco
+vlan 7
+name siete
+vlan 9
+name native
+exit
+int gi1/0/5
+switchport access vlan 9
+no shutdown
+exit
+router rip
+version 2
+network 21.0.0.16
+network 10.0.1.0
+network 11.0.1.128
+network 11.0.3.0
+network 11.0.0.160
+no auto-summary
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.1.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 5
+name cinco
+vlan 7
+name siete
+vlan 9
+name native
+int Gi0/1
+switchport trunk native vlan 9
+switchport mode trunk
+int fa0/1
+switchport access vlan 5
+int fa0/2
+switchport trunk native vlan 9
+switchport mode trunk
+int fa0/3
+switchport access vlan 7
+exit
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 2 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R2
+username R1 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/0
+ip address 11.0.0.6 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/1
+ip address 11.0.0.29 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/2
+ip address 11.0.0.9 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+router rip
+version 2
+network 11.0.0.4
+network 11.0.0.28
+network 11.0.0.8
+no auto-summary
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 3 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R3
+username R1 password cisco
+username R2 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/0
+ip address 11.0.0.17 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/1
+ip address 11.0.0.13 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/2
+ip address 11.0.0.10 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.21 255.255.255.252
+no shutdown
+exit
+ip dhcp pool voz
+default-router 11.0.0.238
+network 11.0.0.224 255.255.255.240
+option 150 ip 11.0.0.21
+exit
+telephony-service
+max-dn 5
+max-ephones 5
+ip source-address 11.0.0.21 port 2000
+auto assign 1 to 5
+exit
+ephone-dn 1
+number 101
+ephone-dn 2
+number 102
+exit
+router rip
+version 2
+network 11.0.0.16
+network 11.0.0.12
+network 11.0.0.8
+network 11.0.0.20
+network 11.0.0.224
+no auto-summary
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.22 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+int vlan 7
+ip address 11.0.5.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.5.254
+network 11.0.5.0 255.255.255.0
+int vlan 6
+ip address 11.0.0.238 255.255.255.240
+ip helper-address 11.0.0.21
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+exit
+router rip
+version 2
+network 11.0.0.20
+network 11.0.5.0
+network 11.0.0.224
+no auto-summary
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.3.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+exit
+spanning-tree vlan 1 priority 4096
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW3
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.3.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport voice vlan 6
+switchport access vlan 7
+int fa0/5
+switchport voice vlan 6
+switchport access vlan 7
+exit
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW4
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.3.4 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+int Gi0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 7
+int fa0/5
+switchport access vlan 7
+exit
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 4 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R4
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/0
+ip address 11.0.0.18 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.25 255.255.255.252
+no shutdown
+exit
+router rip
+version 2
+network 11.0.0.16
+network 11.0.0.24
+no auto-summary
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.26 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.4.1 255.255.255.0
+no shutdown
+int vlan 5
+ip address 11.0.2.126 255.255.255.128
+no shutdown
+ip dhcp pool cinco
+default-router 11.0.2.126
+network 11.0.2.0 255.255.255.128
+int vlan 7
+ip address 11.0.6.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.6.254
+network 11.0.6.0 255.255.255.0
+exit
+vlan 1
+name uno
+vlan 5
+name cinco
+vlan 7
+name siete
+exit
+router rip
+version 2
+network 11.0.0.24
+network 11.0.2.0
+network 11.0.6.0
+no auto-summary
+
+###############################################
+############ Switch 1 ########################
+###############################################
+enable
+configure terminal
+hostname SW1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.4.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 5
+name cinco
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 5
+int fa0/5
+switchport access vlan 7
+int range fa0/1-3
+channel-group 1 mode active
+
+###############################################
+############ Switch 1 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.4.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 5
+name cinco
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 5
+int fa0/5
+switchport access vlan 7
+int fa0/6
+switchport access vlan 7
+int range fa0/1-3
+channel-group 1 mode passive
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 5 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R5
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/1
+ip address 11.0.0.30 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/0
+ip address 11.0.0.33 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+router rip
+version 2
+network 11.0.0.28
+network 11.0.0.32
+no auto-summary
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 6 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R6
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/0
+ip address 11.0.0.34 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/1
+ip address 11.0.0.37 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/2
+ip address 11.0.0.45 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 22.0.0.17 255.255.255.240
+no shutdown
+router rip
+version 2
+network 11.0.0.32
+network 11.0.0.36
+network 11.0.0.44
+network 22.0.0.16
+no auto-summary
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 22.0.0.18 255.255.255.240
+no shutdown
+int gi1/0/4
+no switchport
+ip address 10.0.2.254 255.255.255.0
+no shutdown
+int gi1/0/2
+switchport trunk native vlan 9
+switchport mode trunk
+no shutdown
+int gi1/0/3
+switchport trunk native vlan 9
+switchport mode trunk
+no shutdown
+int gi1/0/5
+switchport trunk native vlan 9
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.6.1 255.255.255.0
+no shutdown
+int vlan 2
+ip address 11.0.23.254 255.255.252.0
+no shutdown
+ip dhcp pool dos
+default-router 11.0.23.254
+network 11.0.20.0 255.255.252.0
+int vlan 7
+ip address 11.0.7.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.7.254
+network 11.0.7.0 255.255.255.0
+int vlan 9
+ip address 11.0.0.190 255.255.255.240
+no shutdown
+ip dhcp pool native
+default-router 11.0.0.190
+network 11.0.0.176 255.255.255.240
+exit
+vlan 1
+name uno
+vlan 2
+name dos
+vlan 7
+name siete
+vlan 9
+name native
+exit
+int gi1/0/6
+switchport access vlan 9
+no shutdown
+exit
+router rip
+version 2
+network 22.0.0.16
+network 10.0.2.0
+network 11.0.20.0
+network 11.0.7.0
+network 11.0.0.176
+no auto-summary
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.6.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 2
+name dos
+vlan 7
+name siete
+vlan 9
+name native
+int Gi0/1
+switchport trunk native vlan 9
+switchport mode trunk
+int fa0/1
+switchport access vlan 2
+int fa0/2
+switchport trunk native vlan 9
+switchport mode trunk
+int fa0/3
+switchport access vlan 7
+exit
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.6.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 2
+name dos
+vlan 7
+name siete
+vlan 9
+name native
+int Gi0/1
+switchport trunk native vlan 9
+switchport mode trunk
+int fa0/1
+switchport access vlan 2
+int fa0/2
+switchport access vlan 2
+int fa0/3
+switchport access vlan 7
+exit
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 7 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R7
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/1
+ip address 11.0.0.38 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/0
+ip address 11.0.0.41 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.53 255.255.255.252
+no shutdown
+ip dhcp pool voz
+default-router 11.0.0.254
+network 11.0.0.240 255.255.255.240
+option 150 ip 11.0.0.53
+exit
+telephony-service
+max-dn 5
+max-ephones 5
+ip source-address 11.0.0.53 port 2000
+auto assign 1 to 5
+exit
+ephone-dn 1
+number 201
+ephone-dn 2
+number 202
+exit
+router rip
+version 2
+network 11.0.0.36
+network 11.0.0.40
+network 11.0.0.52
+network 11.0.0.240
+no auto-summary
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.54 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.7.1 255.255.255.0
+no shutdown
+int vlan 7
+ip address 11.0.8.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.8.254
+network 11.0.8.0 255.255.255.0
+int vlan 6
+ip address 11.0.0.254 255.255.255.240
+ip helper-address 11.0.0.53
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+exit
+router rip
+version 2
+network 11.0.0.52
+network 11.0.8.0
+network 11.0.0.240
+no auto-summary
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.7.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+int Gi0/1
+switchport mode trunk
+int Gi0/2
+switchport mode trunk
+int fa0/1
+switchport access vlan 7
+int fa0/2
+switchport access vlan 7
+int fa0/3
+switchport access vlan 7
+exit
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.7.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+int Gi0/1
+switchport mode trunk
+int Gi0/2
+switchport mode trunk
+int fa0/1
+switchport access vlan 7
+int fa0/2
+switchport voice vlan 6
+switchport access vlan 7
+int fa0/3
+switchport voice vlan 6
+switchport access vlan 7
+exit
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW3
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.7.4 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+int Gi0/1
+switchport mode trunk
+int Gi0/2
+switchport mode trunk
+int fa0/1
+switchport access vlan 7
+int fa0/2
+switchport access vlan 7
+int fa0/3
+switchport access vlan 7
+exit
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 8 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R8
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/1
+ip address 11.0.0.49 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/0
+ip address 11.0.0.42 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/2
+ip address 11.0.0.46 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.57 255.255.255.252
+no shutdown
+exit
+router rip
+version 2
+network 11.0.0.48
+network 11.0.0.40
+network 11.0.0.44
+network 11.0.0.56
+no auto-summary
+
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.58 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.8.1 255.255.255.0
+no shutdown
+int vlan 2
+ip address 11.0.27.254 255.255.252.0
+no shutdown
+ip dhcp pool dos
+default-router 11.0.27.254
+network 11.0.24.0 255.255.252.0
+int vlan 7
+ip address 11.0.9.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.9.254
+network 11.0.9.0 255.255.255.0
+exit
+vlan 1
+name uno
+vlan 2
+name dos
+vlan 7
+name siete
+exit
+router rip
+version 2
+network 11.0.0.56
+network 11.0.24.0
+network 11.0.9.0
+no auto-summary
+
+
+###############################################
+############ Switch 1 ########################
+###############################################
+enable
+configure terminal
+hostname SW1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.8.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 2
+name dos
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 2
+int fa0/5
+switchport access vlan 7
+int range fa0/1-3
+channel-group 1 mode auto
+
+###############################################
+############ Switch 1 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.8.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 2
+name dos
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 2
+int fa0/5
+switchport access vlan 7
+int fa0/6
+switchport access vlan 7
+int range fa0/1-3
+channel-group 1 mode desirable
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 9 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R9
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/1
+ip address 11.0.0.50 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/0
+ip address 11.0.0.65 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.61 255.255.255.252
+no shutdown
+exit
+router rip
+version 2
+network 11.0.0.48
+network 11.0.0.64
+network 11.0.0.60
+no auto-summary
+
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.62 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.9.1 255.255.255.0
+no shutdown
+int vlan 2
+ip address 11.0.31.254 255.255.252.0
+no shutdown
+ip dhcp pool dos
+default-router 11.0.31.254
+network 11.0.28.0 255.255.252.0
+int vlan 7
+ip address 11.0.10.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.10.254
+network 11.0.10.0 255.255.255.0
+exit
+vlan 1
+name uno
+vlan 2
+name dos
+vlan 7
+name siete
+exit
+router rip
+version 2
+network 11.0.0.60
+network 11.0.28.0
+network 11.0.10.0
+no auto-summary
+
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.9.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 2
+name dos
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport access vlan 2
+int fa0/4
+switchport access vlan 7
+exit
+spanning-tree vlan 1 priority 4096
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW3
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.9.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 2
+name dos
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 2
+int fa0/5
+switchport access vlan 7
+exit
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW4
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.9.4 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 2
+name dos
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 2
+int fa0/5
+switchport access vlan 7
+exit
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 10 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R10
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/0
+ip address 11.0.0.66 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/1
+ip address 11.0.0.69 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+router rip
+version 2
+network 11.0.0.64
+no auto-summary
+redistribute eigrp 10 metric 10
+
+router eigrp 10
+network 11.0.0.68 0.0.0.3
+no auto-summary
+redistribute rip metric 1500 100 255 255 1500
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 11 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R11
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/1
+ip address 11.0.0.70 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/0
+ip address 11.0.0.73 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/2
+ip address 11.0.0.86 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 23.0.0.17 255.255.255.240
+no shutdown
+exit
+router eigrp 10
+network 11.0.0.68 0.0.0.3
+network 11.0.0.72 0.0.0.3
+network 11.0.0.84 0.0.0.3
+network 23.0.0.16 0.0.0.15
+no auto-summary
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 23.0.0.18 255.255.255.240
+no shutdown
+int gi1/0/3
+no switchport
+ip address 10.0.3.254 255.255.255.0
+no shutdown
+int gi1/0/2
+switchport trunk native vlan 9
+switchport mode trunk
+no shutdown
+int gi1/0/4
+switchport trunk native vlan 9
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.11.1 255.255.255.0
+no shutdown
+int vlan 3
+ip address 11.0.47.254 255.255.240.0
+no shutdown
+ip dhcp pool tres
+default-router 11.0.47.254
+network 11.0.32.0 255.255.240.0
+int vlan 7
+ip address 11.0.11.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.11.254
+network 11.0.11.0 255.255.255.0
+int vlan 9
+ip address 11.0.0.206 255.255.255.240
+no shutdown
+ip dhcp pool native
+default-router 11.0.0.206
+network 11.0.0.192 255.255.255.240
+exit
+vlan 1
+name uno
+vlan 3
+name tres
+vlan 7
+name siete
+vlan 9
+name native
+exit
+int gi1/0/5
+switchport access vlan 9
+no shutdown
+exit
+router eigrp 10
+network 23.0.0.16 0.0.0.15
+network 10.0.3.0 0.0.0.255
+network 11.0.32.0 0.0.15.255
+network 11.0.11.0 0.0.0.255
+network 11.0.0.192 0.0.0.15
+no auto-summary
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.11.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 3
+name tres
+vlan 7
+name siete
+vlan 9
+name native
+int Gi0/1
+switchport trunk native vlan 9
+switchport mode trunk
+int fa0/1
+switchport access vlan 3
+int fa0/2
+switchport trunk native vlan 9
+switchport mode trunk
+int fa0/3
+switchport access vlan 7
+exit
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 12 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R12
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/1
+ip address 11.0.0.77 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/0
+ip address 11.0.0.74 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/2
+ip address 11.0.0.101 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.89 255.255.255.252
+no shutdown
+ip dhcp pool voz
+default-router 11.0.1.14
+network 11.0.1.0 255.255.255.240
+option 150 ip 11.0.0.89
+exit
+telephony-service
+max-dn 5
+max-ephones 5
+ip source-address 11.0.0.89 port 2000
+auto assign 1 to 5
+exit
+ephone-dn 1
+number 301
+ephone-dn 2
+number 302
+exit
+router eigrp 10
+network 11.0.0.76 0.0.0.3
+network 11.0.0.72 0.0.0.3
+network 11.0.0.100 0.0.0.3
+network 11.0.0.88 0.0.0.3
+network 11.0.1.0 0.0.0.15
+no auto-summary
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.90 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int gi1/0/3
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.12.1 255.255.255.0
+no shutdown
+int vlan 7
+ip address 11.0.12.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.12.254
+network 11.0.12.0 255.255.255.0
+int vlan 6
+ip address 11.0.1.14 255.255.255.240
+ip helper-address 11.0.0.89
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+exit
+router eigrp 10
+network 11.0.0.88 0.0.0.3
+network 11.0.12.0 0.0.0.255
+network 11.0.1.0 0.0.0.15
+no auto-summary
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.12.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport access vlan 7
+int fa0/2
+switchport voice vlan 6
+switchport access vlan 7
+int fa0/3
+switchport voice vlan 6
+switchport access vlan 7
+exit
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW3
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.12.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport access vlan 7
+int fa0/2
+switchport access vlan 7
+int fa0/3
+switchport access vlan 7
+exit
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 13 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R13
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/2
+ip address 11.0.0.85 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/0
+ip address 11.0.0.82 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.93 255.255.255.252
+no shutdown
+exit
+router eigrp 10
+network 11.0.0.84 0.0.0.3
+network 11.0.0.80 0.0.0.3
+network 11.0.0.92 0.0.0.3
+no auto-summary
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.94 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.13.1 255.255.255.0
+no shutdown
+int vlan 3
+ip address 11.0.63.254 255.255.240.0
+no shutdown
+ip dhcp pool tres
+default-router 11.0.63.254
+network 11.0.48.0 255.255.240.0
+int vlan 7
+ip address 11.0.13.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.13.254
+network 11.0.13.0 255.255.255.0
+exit
+vlan 1
+name uno
+vlan 3
+name tres
+vlan 7
+name siete
+exit
+router eigrp 10
+network 11.0.0.92 0.0.0.3
+network 11.0.48.0 0.0.15.255
+network 11.0.13.0 0.0.0.255
+no auto-summary
+
+###############################################
+############ Switch 1 ########################
+###############################################
+enable
+configure terminal
+hostname SW1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.13.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 3
+name tres
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 3
+int fa0/5
+switchport access vlan 7
+int range fa0/1-3
+channel-group 1 mode active
+
+###############################################
+############ Switch 1 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.13.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 3
+name tres
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 3
+int fa0/5
+switchport access vlan 7
+int fa0/6
+switchport access vlan 7
+int range fa0/1-3
+channel-group 1 mode passive
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 14 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R14
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/1
+ip address 11.0.0.78 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/0
+ip address 11.0.0.81 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.97 255.255.255.252
+no shutdown
+exit
+router eigrp 10
+network 11.0.0.76 0.0.0.3
+network 11.0.0.80 0.0.0.3
+network 11.0.0.96 0.0.0.3
+no auto-summary
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.98 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.14.1 255.255.255.0
+no shutdown
+int vlan 3
+ip address 11.0.79.254 255.255.240.0
+no shutdown
+ip dhcp pool tres
+default-router 11.0.79.254
+network 11.0.64.0 255.255.240.0
+int vlan 7
+ip address 11.0.14.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.14.254
+network 11.0.14.0 255.255.255.0
+exit
+vlan 1
+name uno
+vlan 3
+name tres
+vlan 7
+name siete
+exit
+router eigrp 10
+network 11.0.0.96 0.0.0.3
+network 11.0.64.0 0.0.15.255
+network 11.0.14.0 0.0.0.255
+no auto-summary
+
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.14.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 3
+name tres
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport access vlan 3
+int fa0/4
+switchport access vlan 7
+exit
+spanning-tree vlan 1 priority 4096
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW3
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.14.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 3
+name tres
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 7
+int fa0/5
+switchport access vlan 3
+exit
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW4
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.14.4 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 3
+name tres
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 7
+int fa0/5
+switchport access vlan 3
+exit
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 15 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R15
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/2
+ip address 11.0.0.102 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/0
+ip address 11.0.0.105 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+
+router ospf 10
+network 11.0.0.104 0.0.0.3 area 0
+redistribute eigrp 10 metric 10 subnets
+
+
+router eigrp 10
+network 11.0.0.100 0.0.0.3
+no auto-summary
+redistribute ospf 10 metric 1500 100 255 255 1500
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 16 !!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R16
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R17 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/1
+ip address 11.0.0.113 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/0
+ip address 11.0.0.106 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/2
+ip address 11.0.0.109 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 24.0.0.17 255.255.255.240
+no shutdown
+router ospf 10
+redistribute connected subnets
+network 11.0.0.104 0.0.0.3 area 0
+network 11.0.0.112 0.0.0.3 area 0
+network 11.0.0.108 0.0.0.3 area 0
+network 24.0.0.16 0.0.0.15 area 0
+
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 24.0.0.18 255.255.255.240
+no shutdown
+int gi1/0/4
+no switchport
+ip address 10.0.4.254 255.255.255.0
+no shutdown
+int gi1/0/2
+switchport trunk native vlan 9
+switchport mode trunk
+no shutdown
+int gi1/0/3
+switchport trunk native vlan 9
+switchport mode trunk
+no shutdown
+int gi1/0/5
+switchport trunk native vlan 9
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.16.1 255.255.255.0
+no shutdown
+int vlan 4
+ip address 11.7.255.254 255.252.0.0
+no shutdown
+ip dhcp pool cuatro
+default-router 11.7.255.254
+network 11.4.0.0 255.252.0.0
+int vlan 7
+ip address 11.0.15.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.15.254
+network 11.0.15.0 255.255.255.0
+int vlan 9
+ip address 11.0.0.222 255.255.255.240
+no shutdown
+ip dhcp pool native
+default-router 11.0.0.222
+network 11.0.0.208 255.255.255.240
+exit
+vlan 1
+name uno
+vlan 4
+name cuatro
+vlan 7
+name siete
+vlan 9
+name native
+exit
+int gi1/0/6
+switchport access vlan 9
+no shutdown
+exit
+router ospf 10
+redistribute connected subnets
+network 24.0.0.16 0.0.0.15 area 0
+network 10.0.4.0 0.0.0.255 area 0
+network 11.4.0.0 0.3.255.255 area 0
+network 11.0.15.0 0.0.0.255 area 0
+network 11.0.0.208 0.0.0.15 area 0
+
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.16.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 4
+name cuatro
+vlan 7
+name siete
+vlan 9
+name native
+int Gi0/1
+switchport trunk native vlan 9
+switchport mode trunk
+int fa0/1
+switchport access vlan 4
+int fa0/2
+switchport trunk native vlan 9
+switchport mode trunk
+int fa0/3
+switchport access vlan 7
+exit
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.16.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 4
+name cuatro
+vlan 7
+name siete
+vlan 9
+name native
+int Gi0/1
+switchport trunk native vlan 9
+switchport mode trunk
+int fa0/1
+switchport access vlan 4
+int fa0/2
+switchport access vlan 4
+int fa0/3
+switchport access vlan 7
+exit
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 17 !!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R17
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R18 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/2
+ip address 11.0.0.110 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.121 255.255.255.252
+no shutdown
+ip dhcp pool voz
+default-router 11.0.1.30
+network 11.0.1.16 255.255.255.240
+option 150 ip 11.0.0.121
+exit
+telephony-service
+max-dn 5
+max-ephones 5
+ip source-address 11.0.0.121 port 2000
+auto assign 1 to 5
+exit
+ephone-dn 1
+number 401
+ephone-dn 2
+number 402
+exit
+router ospf 10
+redistribute connected subnets
+network 11.0.0.108 0.0.0.3 area 0
+network 11.0.0.120 0.0.0.3 area 0
+network 11.0.1.16 0.0.0.15 area 0
+
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.122 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.17.1 255.255.255.0
+no shutdown
+int vlan 7
+ip address 11.0.16.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.16.254
+network 11.0.16.0 255.255.255.0
+int vlan 6
+ip address 11.0.1.30 255.255.255.240
+ip helper-address 11.0.0.121
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+exit
+router ospf 10
+redistribute connected subnets
+network 11.0.0.120 0.0.0.3 area 0
+network 11.0.1.16 0.0.0.15 area 0
+network 11.0.16.0 0.0.0.255 area 0
+
+###############################################
+############ Switch 1 ########################
+###############################################
+enable
+configure terminal
+hostname SW1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.17.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 7
+int fa0/5
+switchport voice vlan 6
+switchport access vlan 7
+int range fa0/1-3
+channel-group 1 mode active
+
+###############################################
+############ Switch 1 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.17.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 7
+name siete
+vlan 6
+name voz
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 7
+int fa0/5
+switchport access vlan 7
+int fa0/6
+switchport voice vlan 6
+switchport access vlan 7
+int range fa0/1-3
+channel-group 1 mode passive
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 18 !!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R18
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R19 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/2
+ip address 11.0.0.117 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int se1/1
+ip address 11.0.0.114 255.255.255.252
+no shutdown
+clock rate 56000
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.125 255.255.255.252
+no shutdown
+exit
+router ospf 10
+redistribute connected subnets
+network 11.0.0.116 0.0.0.3 area 0
+network 11.0.0.112 0.0.0.3 area 0
+network 11.0.0.124 0.0.0.3 area 0
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.126 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.18.1 255.255.255.0
+no shutdown
+int vlan 4
+ip address 11.11.255.254 255.252.0.0
+no shutdown
+ip dhcp pool cuatro
+default-router 11.11.255.254
+network 11.8.0.0 255.252.0.0
+int vlan 7
+ip address 11.0.17.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.17.254
+network 11.0.17.0 255.255.255.0
+exit
+vlan 1
+name uno
+vlan 4
+name cuatro
+vlan 7
+name siete
+exit
+router ospf 10
+redistribute connected subnets
+network 11.0.0.124 0.0.0.3 area 0
+network 11.8.0.0 0.3.255.255 area 0
+network 11.0.17.0 0.0.0.255 area 0
+
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.18.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 4
+name cuatro
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport access vlan 4
+int fa0/4
+switchport access vlan 7
+exit
+spanning-tree vlan 1 priority 4096
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW3
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.18.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 4
+name cuatro
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 7
+int fa0/5
+switchport access vlan 4
+exit
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW4
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.18.4 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 4
+name cuatro
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/2
+switchport mode trunk
+int fa0/3
+switchport mode trunk
+int fa0/4
+switchport access vlan 7
+int fa0/5
+switchport access vlan 4
+exit
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!! Router 19 !!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+enable
+configure terminal
+hostname R19
+username R1 password cisco
+username R2 password cisco
+username R3 password cisco
+username R4 password cisco
+username R5 password cisco
+username R6 password cisco
+username R7 password cisco
+username R8 password cisco
+username R9 password cisco
+username R10 password cisco
+username R11 password cisco
+username R12 password cisco
+username R13 password cisco
+username R14 password cisco
+username R15 password cisco
+username R16 password cisco
+username R17 password cisco
+username R18 password cisco
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+int se1/2
+ip address 11.0.0.118 255.255.255.252
+no shutdown
+encapsulation ppp
+ppp authentication chap
+exit
+int eth0/0/0
+ip address 11.0.0.129 255.255.255.252
+no shutdown
+exit
+router ospf 10
+redistribute connected subnets
+network 11.0.0.116 0.0.0.3 area 0
+network 11.0.0.128 0.0.0.3 area 0
+
+###############################################
+############ Switch 1 ######################### Capa 3
+###############################################
+enable
+configure terminal
+hostname SWcapa1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+ip routing
+int gi1/0/1
+no switchport
+ip address 11.0.0.130 255.255.255.252
+no shutdown
+int gi1/0/2
+switchport mode trunk
+no shutdown
+int vlan 1
+ip address 192.168.19.1 255.255.255.0
+no shutdown
+int vlan 4
+ip address 11.15.255.254 255.252.0.0
+no shutdown
+ip dhcp pool cuatro
+default-router 11.15.255.254
+network 11.12.0.0 255.252.0.0
+int vlan 7
+ip address 11.0.18.254 255.255.255.0
+no shutdown
+ip dhcp pool siete
+default-router 11.0.18.254
+network 11.0.18.0 255.255.255.0
+exit
+vlan 1
+name uno
+vlan 4
+name cuatro
+vlan 7
+name siete
+exit
+router ospf 10
+redistribute connected subnets
+network 11.0.0.128 0.0.0.3 area 0
+network 11.12.0.0 0.3.255.255 area 0
+network 11.0.18.0 0.0.0.255 area 0
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW1
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.19.2 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 4
+name cuatro
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport access vlan 4
+int fa0/2
+switchport access vlan 7
+int fa0/3
+switchport access vlan 7
+exit
+
+###############################################
+############ Switch 2 ########################
+###############################################
+enable
+configure terminal
+hostname SW2
+ip domain-name cisco
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username admin privilege 15 password cisco
+enable secret cisco
+interface vlan 1
+ip address 192.168.19.3 255.255.255.0
+no shutdown
+exit
+vlan 1
+name uno
+vlan 4
+name cuatro
+vlan 7
+name siete
+int Gi0/1
+switchport mode trunk
+int fa0/1
+switchport access vlan 4
+int fa0/2
+switchport access vlan 7
+int fa0/3
+switchport access vlan 7
+exit

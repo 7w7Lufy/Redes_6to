@@ -1,0 +1,13 @@
+en
+conf t
+int
+ip add 
+no shut
+
+exit
+router rip
+version 2
+network
+
+no auto-summary
+exit

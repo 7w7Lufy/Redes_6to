@@ -1,0 +1,362 @@
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname R1
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Eth0/3/0
+ip add 14.0.0.5 255.255.255.252
+no shut
+int Fa0/0
+ip add 14.0.0.9 255.255.255.252
+no shut
+int Fa0/1
+ip add 14.0.0.17 255.255.255.252
+no shut
+!Por si se ocupan subredes
+int Eth0/3/0.2
+encapsulation dot1Q 2
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 14.0.255.254 255.255.128.0
+no shut
+int Eth0/3/0.3
+encapsulation dot1Q 3
+ip add 14.0.1.254 255.255.255.0
+no shut
+int Eth0/3/0.4
+encapsulation dot1Q 4
+ip add 14.2.255.254 255.255.0.0
+no shut
+int Eth0/3/0.5
+encapsulation dot1Q 5
+ip add 14.0.7.254 255.255.252.0
+no shut
+exit
+!Pool's para el DHCP
+ip dhcp pool VLAN2
+default-router 14.0.255.254
+network 14.0.128.0 255.255.128.0
+ip dhcp pool VLAN3
+default-router 14.0.1.254
+network 14.0.1.0 255.255.255.0
+ip dhcp pool VLAN4
+default-router 14.2.255.254
+network 14.2.0.0 255.255.0.0
+ip dhcp pool VLAN5
+default-router 14.0.7.254
+network 14.0.4.0 255.255.252.0
+
+exit
+router rip 
+version 2
+network 14.0.0.0
+no auto-summary
+exit
+
+
+network 14.0.0.4
+network 14.0.0.8
+network 14.0.0.16
+network 14.0.128.0
+network 14.0.1.0
+network 14.2.0.0
+network 14.0.4.0
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Sw1
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 2
+name dos
+vlan 3
+name tres
+vlan 4
+name cuattro
+vlan 5
+name cinco
+exit
+!Conexion a Switchcore
+int Fa0/1
+switchport mode trunk
+spanning-tree vlan 1 priority 4096
+exit
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Sw2
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 2
+name dos
+vlan 3
+name tres
+vlan 4
+name cuattro
+vlan 5
+name cinco
+exit
+!Conexion a Switchcore
+int Fa0/1
+switchport mode trunk
+!Conexion a PC's
+int Fa0/3
+switchport access vlan 5  
+int Fa0/4
+switchport access vlan 3
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 2
+name dos
+vlan 3
+name tres
+vlan 4
+name cuattro
+vlan 5
+name cinco
+exit
+!Conexion a Switchcore
+int Fa0/2
+switchport mode trunk
+!Conexion a PC's    
+int Fa0/3
+switchport access vlan 4 
+int Fa0/4
+switchport access vlan 4
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname R2
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0 
+ip add 14.0.0.10 255.255.255.252
+no shut
+int Eth0/1/0
+ip add  14.0.0.13 255.255.255.252
+no shut
+int Fa0/1
+ip add 14.0.0.21 255.255.255.252
+no shut
+!Por si se ocupan subredes
+int Eth0/1/0.3
+encapsulation dot1Q 3
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 14.0.2.254 255.255.255.0
+no shut
+int Eth0/1/0.5
+encapsulation dot1Q 5
+ip add 14.0.11.254 255.255.252.0
+no shut
+exit
+!Pool's para el DHCP
+ip dhcp pool Vlan3
+default-router 14.0.2.254
+network 14.0.2.0 255.255.255.0
+ip dhcp pool Vlan5
+default-router 14.0.11.254
+network 14.0.8.0 255.255.252.0
+
+router rip
+version 2
+network 14.0.0.0
+no auto-summary
+exit
+
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 2
+name dos
+vlan 3
+name tres
+vlan 4
+name cuattro
+vlan 5
+name cinco
+exit
+!Conexion a Switchcore
+int Fa0/1
+switchport mode trunk
+!Conexion a PC's
+int Fa0/2
+switchport access vlan  5
+int Fa0/3
+switchport access vlan  5
+int Fa0/4
+switchport access vlan  3
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname R3
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 14.0.0.22 255.255.255.252
+no shut
+int Fa0/1
+ip add 14.0.0.18 255.255.255.252
+no shut
+int Eth0/1/0
+ip add  14.0.0.25 255.255.255.252
+no shut
+!Por si se ocupan subredes
+int Eth0/1/0.2
+encapsulation dot1Q 2
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 14.1.127.254 255.255.128.0
+no shut
+int Eth0/1/0.3
+encapsulation dot1Q 3
+ip add 14.0.3.254 255.255.255.0
+no shut
+int Eth0/1/0.4
+encapsulation dot1Q 4
+ip add 14.3.255.254 255.255.0.0
+no shut
+exit
+!Pool's para el DHCP
+ip dhcp pool vlan2
+default-router 14.1.127.254
+network 14.1.0.0 255.255.128.0
+ip dhcp pool vlan3
+default-router 14.0.3.254
+network 14.0.3.0 255.255.255.0
+ip dhcp pool vlan4
+default-router 14.3.255.254
+network 14.3.0.0 255.255.0.0
+
+router rip 
+version 2
+network 14.0.0.0
+no auto-summary
+exit
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username yanh privilege 15 password gatito
+enable secret gatito
+vlan 2
+name dos
+vlan 3
+name tres
+vlan 4
+name cuattro
+vlan 5
+name cinco
+exit
+!Conexion a Switchcore
+int Fa0/1
+switchport mode trunk
+!Conexion a PC's
+int Fa0/2
+switchport access vlan   3
+int Fa0/3
+switchport access vlan  4
+!LACP
+int range Fa0/20-22
+switchport mode trunk
+channel-group 1 mode active
+  
+
+
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 2
+name dos
+vlan 3
+name tres
+vlan 4
+name cuattro
+vlan 5
+name cinco
+exit
+!Conexion a PC's
+int Fa0/2
+switchport access vlan  2
+int Fa0/3
+switchport access vlan  3
+int Fa0/4
+switchport access vlan  4
+!LACP
+int range Fa0/20-22
+switchport mode trunk
+channel-group 1 mode passive  

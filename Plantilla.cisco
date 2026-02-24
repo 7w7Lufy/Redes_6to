@@ -1,0 +1,160 @@
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan
+name
+vlan
+name
+vlan
+name
+vlan
+name
+vlan
+name
+exit
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+
+
+!LACP
+int range  
+switchport mode trunk
+channel-group 1 mode active
+
+int range 
+switchport mode trunk
+channel-group 1 mode passive      
+
+spanning-tree vlan 1 priority 4096
+exit
+show spanning-tree
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname 
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int 
+ip add  255.255.255.252
+no shut
+int 
+ip add  255.255.255.252
+no shut
+int 
+ip add  255.255.255.252
+no shut
+int 
+ip add  255.255.255.252
+no shut
+!Por si se ocupan subredes
+int 
+encapsulation dot1Q 
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 
+no shut
+int 
+encapsulation dot1Q 
+ip add 
+no shut
+exit
+!Pool's para el DHCP
+ip dhcp pool 
+default-router 
+network 
+ip dhcp pool 
+default-router 
+network 
+
+
+router rip
+version 2
+network 
+no auto-summary
+exit
+
+router eigrp 100
+network 
+no auto-summary
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname 
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip 
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip 
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan
+name
+vlan
+name
+vlan
+name
+vlan
+name
+vlan
+name
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+ip route
