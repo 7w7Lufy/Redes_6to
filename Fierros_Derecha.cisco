@@ -22,6 +22,8 @@ int range
 switchport mode trunk
 channel-group 1 mode passive   
 
+
+!-----DE IZQUIERDA A DERECHA-----------------------------------------
 !------------PRIMER ANAQUEL-----------------------------------------
 !--VA DE ARRIBA HACIA ABAJO----------------------------------------
 
