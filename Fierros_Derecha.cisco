@@ -1,0 +1,547 @@
+!!SPANING TREE
+spanning-tree vlan 1 priority 4096
+
+!!RUTEO EIGRP
+router eigrp 100
+network 
+no auto-summary
+
+!!RUTEO RIP
+router rip
+version 2
+network 
+no auto-summary
+
+
+!!!LACP
+int range  
+switchport mode trunk
+channel-group 1 mode active
+
+int range 
+switchport mode trunk
+channel-group 1 mode passive   
+
+!------------PRIMER ANAQUEL-----------------------------------------
+!--VA DE ARRIBA HACIA ABAJO----------------------------------------
+
+!=======SWITCH 
+en 
+conf t
+hostname SWITCH
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 
+name 
+vlan 
+name 
+vlan 
+name 
+exit
+
+!Conexion a Router
+int GigabitEthernet0/
+switchport mode trunk
+
+
+!Conexion a PC's
+int GigabitEthernet0/
+switchport access vlan 
+int GigabitEthernet0/
+switchport access vlan 
+
+
+!===========ROUTER
+en 
+conf t
+hostname ROUTER
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+!conexion a router o switch
+!-->
+int GigabitEthernet0/0/0
+ip add 
+no shut
+!-->
+int GigabitEthernet0/0/1
+ip add 
+no shut
+!-->
+int GigabitEthernet0/0/2
+ip add 
+no shut
+exit
+
+!Por si se ocupan subredes (los combos de ip's)
+int GigabitEthernet0/0/
+encapsulation dot1Q 
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 
+no shut
+int GigabitEthernet0/0/
+encapsulation dot1Q 
+ip add 
+no shut
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+!=======SWITCH
+en 
+conf t
+hostname SWITCH
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 
+name 
+vlan 
+name 
+vlan 
+name 
+exit
+!Conexion a Router o switch
+int GigabitEthernet0/
+switchport mode trunk
+!Conexion a PC's
+int GigabitEthernet0/
+switchport access vlan 
+
+!=======ROUTER
+en 
+conf t
+hostname ROUTER
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+!conexion a router o switch
+!--> 
+int GigabitEthernet0/0/0
+ip add 
+no shut
+!--> 
+int GigabitEthernet0/0/1
+ip add 
+no shut
+
+!Por si se ocupan subredes (los combos de ip's)
+int GigabitEthernet0/0/
+encapsulation dot1Q 
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 
+no shut
+int GigabitEthernet0/0/
+encapsulation dot1Q 
+ip add 
+no shut
+exit
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+
+!---------------SEGUNDO ANAQUEL-----------------------------------------
+!--VA DE ARRIBA HACIA ABAJO----------------------------------------
+
+!=======SWITCH
+en 
+conf t
+hostname SWITCH
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 
+name 
+vlan 
+name 
+vlan 
+name 
+exit
+!Conexion a Router o switch
+int Fa0/
+switchport mode trunk
+
+!Conexion a PC's
+int Fa0/
+switchport access vlan 
+int Fa0/
+switchport access vlan 
+
+
+
+!=======ROUTER
+en 
+conf t
+hostname ROUTER
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+!conexion a router o switch
+!-->
+int GigabitEthernet0/
+ip add 
+no shut
+!-->
+int GigabitEthernet0/
+ip add 
+no shut
+!-->
+int GigabitEthernet0/
+ip add 
+no shut
+!Por si se ocupan subredes (los combos de ip's)
+int GigabitEthernet0/
+encapsulation dot1Q 
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 
+no shut
+int GigabitEthernet0/
+encapsulation dot1Q 
+ip add 
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+!=======SWITCH
+en 
+conf t
+hostname SWITCH
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 
+name 
+vlan 
+name 
+vlan 
+name 
+exit
+!Conexion a Switchcore
+int Fa0/
+switchport mode trunk
+!Conexion a PC's
+int Fa0/
+switchport access vlan 
+int Fa0/
+switchport access vlan 
+
+!=======ROUTER
+en 
+conf t
+hostname ROUTER
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+!conexion a router o switch
+!-->
+int GigabitEthernet0/
+ip add 
+no shut
+!-->
+int GigabitEthernet0/
+ip add 
+no shut
+!-->
+int GigabitEthernet0/
+ip add 
+no shut
+
+!Por si se ocupan subredes
+int GigabitEthernet0/
+encapsulation dot1Q 
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 
+no shut
+int GigabitEthernet0/
+encapsulation dot1Q 
+ip add 
+exit
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+!======SWITCH
+en 
+conf t
+hostname SWITCH
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 
+name 
+vlan 
+name 
+vlan 
+name 
+exit
+
+!Conexion a Router o switch
+int GigabitEthernet0/
+switchport mode trunk
+
+!Conexion a PC's
+int GigabitEthernet0/
+switchport access vlan 
+int GigabitEthernet0/
+switchport access vlan 
+
+
+!=======SWITCH
+!este Switch no lo he trabajado entonces no se su interfaces
+en 
+conf t
+hostname SWITCH
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+vlan 
+name 
+vlan 
+name 
+vlan 
+name 
+exit
+
+
+
+!------------TERCER ANAQUEL-----------------------------------------
+!--VA DE ARRIBA HACIA ABAJO----------------------------------------
+
+!=======SWITCHCORE
+en 
+conf t
+hostname SWITCHCORE
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+!--> 
+int GigabitEthernet0/
+no switchport
+ip add 
+no shut
+
+!Interfaces que conecta a los switches
+int GigabitEthernet0/
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add 
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add 
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+!Declarar vlan's
+vlan 
+name 
+vlan 
+name 
+vlan 
+name 
+!RUTEO 
+
+
+!=====Switch
+en 
+conf t
+hostname SWITCH
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+
+vlan 
+name 
+vlan 
+name 
+vlan 
+name 
+exit
+
+!Conexion a Switchcore
+int FastEthernet0/
+switchport mode trunk
+!Conexion a PC's
+int FastEthernet0/
+switchport access vlan
+
+
+!=======ROUTER
+en 
+conf t
+hostname ROUTER
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+!conexion a router o switch
+!-->
+int GigabitEthernet0/
+ip add 
+no shut
+!-->
+int GigabitEthernet0/
+ip add 
+no shut
+!-->
+int GigabitEthernet0/
+ip add 
+no shut
+
+!Por si se ocupan subredes
+int GigabitEthernet0/
+encapsulation dot1Q 
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 
+no shut
+int GigabitEthernet0/
+encapsulation dot1Q 
+ip add 
+no shut 
+int GigabitEthernet0/
+encapsulation dot1Q 
+ip add 
+no shut
+exit
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+!=======SWITCH
+en 
+conf t
+hostname SWITCH
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+
+vlan 
+name 
+vlan 
+name 
+vlan 
+name 
+exit
+!Conexion a Switchcore
+int GigabitEthernet0/
+switchport mode trunk
+!Conexion a PC's
+int GigabitEthernet0/
+switchport access vlan
+int GigabitEthernet0/
+switchport access vlan
+
+
+!-----TERMINAN LOS ANAQUELES-----------------------------------------
