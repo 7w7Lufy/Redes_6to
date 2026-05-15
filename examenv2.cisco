@@ -1,0 +1,330 @@
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname Rarea01
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/1
+ip add 14.0.0.77 255.255.255.252
+no shut
+int Fa0/0
+ip add 14.0.0.74 255.255.255.252
+no shut
+
+
+router ospf 10
+network 14.0.0.72 255.255.255.252 area 0
+network 14.0.0.76 255.255.255.252 area 0
+
+
+
+
+
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname 
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int Fa0/1
+no switchport
+ip add 14.0.0.5 255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int Fa0/2
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+int Fa0/3
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 2
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 3
+ip add
+no shut
+interface vlan 4
+ip add  
+no shut
+interface vlan 5
+ip 
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool vlan2
+default-router
+network
+ip dhcp pool vlan3
+default-router 
+network 
+ip dhcp pool vlan4
+default-router 
+network 
+ip dhcp pool vlan5
+default-router 
+network 
+!Declarar vlan's
+vlan 2
+name dos
+vlan 3
+name tres
+vlan 4
+name cuatro
+vlan 5
+name cinco
+
+router ospf 10
+network  area 0
+network  area 0
+network  area 0
+network  area 0
+network area 0
+
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname SW18
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.18 255.255.255.0
+no shutdown
+exit
+vlan 2
+name dos
+vlan 3
+name tres
+vlan 4
+name cuatro
+vlan 5
+name cinco
+!Conexion a Switchcore
+int Fa0/1
+switchport mode trunk
+!Conexion a PC's
+int Fa0/2
+switchport access vlan 2
+int Fa0/3
+switchport access vlan 3
+int Fa0/4
+switchport access vlan 4
+exit
+
+
+!LACP
+int range Fa0/20-22
+switchport mode trunk
+channel-group 1 mode active
+
+int range Fa0/20-22
+switchport mode trunk
+channel-group 1 mode passive  
+
+
+spanning-tree vlan 1 priority 4096
+
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname 
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname Rarea01
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Eth0/1/0
+ip add 14.0.0.46 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 14.0.0.65 255.255.255.252
+no shut
+int Eth0/2/0
+ip add 14.0.0.137 255.255.255.252
+no shut
+int Fa0/0
+ip add 14.0.0.61 255.255.255.252
+no shut
+int Fa0/1
+ip add 14.0.0.49 255.255.255.252
+no shut
+!Por si se ocupan subredes
+int Eth0/2/0.2
+encapsulation dot1Q 2
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 14.0.19.254 255.255.252.0
+no shut
+int Eth0/2/0.3
+encapsulation dot1Q 3
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add  14.1.127.254 255.255.192.0
+no shut
+int Eth0/2/0.4
+encapsulation dot1Q 4
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 14.5.127.254  255.255.128.0
+no shut
+int Eth0/2/0.5
+encapsulation dot1Q 5
+!ip add [es la penultima ip del combo] [mascara del combo]
+ip add 14.9.31.254 255.255.224.0
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan2
+default-router 14.0.19.254
+network 14.0.16.0 255.255.252.0
+ip dhcp pool vlan3
+default-router 14.1.127.254
+network 14.1.64.0 255.255.192.0
+ip dhcp pool vlan4
+default-router 14.5.127.254
+network 14.5.0.0 255.255.128.0
+ip dhcp pool vlan5
+default-router 14.9.31.254
+network 14.9.0.0 255.255.224.0
+
+
+
+router ospf 10
+network 14.0.0.12 255.255.255.252 area 0
+network 14.0.0.16 255.255.255.252 area 0
+network 14.0.0.24 255.255.255.252 area 0
+network 14.0.0.40 255.255.255.252 area 0
+network 14.0.0.44 255.255.255.252 area 0
+network 14.0.16.0 255.255.252.0 area 0
+network 14.1.64.0 255.255.192.0 area 0
+network 14.5.0.0 255.255.128.0 area 0
+network 14.9.0.0 255.255.224.0 area 0
+
+
+
+
+
+
+
+
+
+
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname 
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int Fa0/1
+no switchport
+ip add 14.0.0.82 255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int Fa0/2
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+int Fa0/3
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 2
+ip add 14.0.27.254  255.255.252.0
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 3
+ip add 14.1.255.254 255.255.192.0
+no shut
+interface vlan 4
+ip add   14.6.127.254  255.255.128.0
+no shut
+interface vlan 5
+ip add 14.9.95.254  255.255.224.0
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool vlan2
+default-router 14.0.27.254
+network 14.0.24.0  255.255.252.0
+ip dhcp pool vlan3
+default-router  14.1.255.254
+network 14.1.192.0 255.255.192.0
+ip dhcp pool vlan4
+default-router  14.6.127.254
+network 14.6.0.0 255.255.128.0
+ip dhcp pool vlan5
+default-router 14.9.95.254 
+network  14.9.64.0 255.255.224.0
+!Declarar vlan's
+vlan 2
+name dos
+vlan 3
+name tres
+vlan 4
+name cuatro
+vlan 5
+name cinco
+
+router ospf 10
+network 14.0.24.0  255.255.252.0 area 0
+network 14.1.192.0 255.255.192.0 area 0
+network  14.6.0.0 255.255.128.0 area 0
+network 14.9.64.0 255.255.224.0 area 0
+network 14.0.0.80  255.255.255.252 area 0
+
+
+

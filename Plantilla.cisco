@@ -10,31 +10,42 @@ login local
 exit
 username gatito privilege 15 password gatito
 enable secret gatito
-vlan
-name
-vlan
-name
-vlan
-name
-vlan
-name
-vlan
-name
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
 exit
+vlan
+name
+vlan
+name
+vlan
+name
+vlan
+name
+!nativas
+vlan
+name native
+vlan
+name native
+vlan
+name native
+int 
+switchport trunk native vlan #
+switchport mode trunk 
 !Conexion a Switchcore
 int 
 switchport mode trunk
 !Conexion a PC's
 int 
 switchport access vlan 
-
+exit
 
 !LACP
-int range  
+int range Fa0/20-22
 switchport mode trunk
 channel-group 1 mode active
 
-int range 
+int range Fa0/20-22
 switchport mode trunk
 channel-group 1 mode passive      
 
@@ -72,18 +83,35 @@ encapsulation dot1Q
 !ip add [es la penultima ip del combo] [mascara del combo]
 ip add 
 no shut
+
+!WLAC
 int 
-encapsulation dot1Q 
+!Docente
+encapsulation dot1Q # 
+ip add 
+no shut
+!Alumno#
+encapsulation dot1Q # 
+ip add 
+no shut
+!Alumno#
+encapsulation dot1Q # 
 ip add 
 no shut
 exit
+
 !Pool's para el DHCP
-ip dhcp pool 
+ip dhcp pool vlan
 default-router 
 network 
-ip dhcp pool 
+ip dhcp pool vlan
 default-router 
 network 
+
+!SERVIDOR
+int Fa
+ip add 162.198.1.254 255.255.255.0
+no shut
 
 
 router rip
@@ -99,6 +127,8 @@ no auto-summary
 router ospf 1
 network 192.168.1.0 0.0.0.255 area 0
 network 192.168.2.0 0.0.0.255 area 0
+
+
 
 !SWITCHCORE----------------------------------
 en 
@@ -159,5 +189,60 @@ int
 switchport access vlan 
 exit
 
+!La conexion a la pc no lleva switchport trunk nativee vlan #
+
 
 ip route
+
+
+
+!SWITCHCORE solo swtch----------------------------------
+en 
+conf t
+hostname 
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ipp add 192.168.1.0 255.255.255.0
+no shutdown
+!Declarar vlan's
+exit
+vlan
+name
+vlan
+name
+vlan
+name
+vlan
+name
+!nativas
+vlan
+name native
+vlan
+name native
+vlan
+name native
+
+int 
+switchport trunk native vlan #
+switchport mode trunk 
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+
+
+
+
+
