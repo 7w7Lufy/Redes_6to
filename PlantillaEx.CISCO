@@ -1,0 +1,1727 @@
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname ROUTER1
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Fa0/1
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/1/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/2/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/3/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname SWITCHCORE1
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname ROUTER2
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Fa0/1
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/1/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/2/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/3/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname SWITCHCORE2
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname ROUTER3
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Fa0/1
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/1/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/2/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/3/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname SWITCHCORE3
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname ROUTER4
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Fa0/1
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/1/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/2/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/3/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+
+
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname SWITCHCORE4
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+network 17.0.0. 255.255.255.252 area 1
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname ROUTER5
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Fa0/1
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/1/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/2/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/3/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname SWITCHCORE5
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname ROUTER6
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Fa0/1
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/1/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/2/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/3/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname SWITCHCORE6
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname ROUTER7
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Fa0/1
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/1/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/2/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/3/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname SWITCHCORE7
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname ROUTER8
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Fa0/1
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/1/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/2/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/3/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname SWITCHCORE8
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname ROUTER9
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Fa0/1
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/1/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/2/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/3/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname SWITCHCORE9
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!ROUTER--------------------------------------------------------------------
+en 
+conf t
+hostname ROUTER10
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+int Fa0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Fa0/1
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/0/0
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/1/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/2/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+int Eth0/3/0 
+ip add 17.0.0. 255.255.255.252
+no shut
+
+
+!Pool's para el DHCP
+ip dhcp pool vlan
+default-router 
+network 
+ip dhcp pool vlan
+default-router 
+network 
+
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 2
+network 17.0.0. 255.255.255.252 area 2
+network 17.0.0. 255.255.255.252 area 2
+network 17.0.0. 255.255.255.252 area 2
+
+
+!SWITCHCORE----------------------------------
+en 
+conf t
+hostname SWITCHCORE10
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+ip routing
+!Se declara la interfaz que conecta al router
+int 
+no switchport
+ip add  255.255.255.252
+no shut
+
+!Interfaces que conecta a los switches
+int 
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+interface vlan 
+ip add
+!ip  add {penultima ip del combo} [mascara del combo]
+no shut
+interface vlan 
+ip add
+no shut
+exit
+
+!Pool's para el DHCP
+ip dhcp pool
+default-router 
+network
+ip dhcp pool
+default-router 
+network
+
+!Declarar vlan's
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+
+!Conexion a PC's
+int 
+switchport access vlan 
+int 
+switchport access vlan 
+exit
+
+
+router ospf 10
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+network 17.0.0. 255.255.255.252 area 0
+
+
+
+!SWITCH----------------------------------------------------------------------
+en 
+conf t
+hostname Swicth
+ip domain-name gatito
+crypto key generate rsa general-keys modulus 512
+line vty 0 5
+transport input ssh
+login local
+exit
+username gatito privilege 15 password gatito
+enable secret gatito
+interface vlan 1
+ip add 192.168.1.0 255.255.255.0
+no shutdown
+exit
+vlan 3
+name tres
+vlan 4
+name cutro
+vlan 5
+name cinco
+vlan 6
+name seis
+vlan 7
+name siete
+!Conexion a Switchcore
+int 
+switchport mode trunk
+!Conexion a PC's
+int 
+switchport access vlan 
+exit
